@@ -13,7 +13,7 @@ let tarefas = [
 ];
 
 // ----- ROTAS ------
-router.get("/", (req: path, res: Response) => {
+router.get("/", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../public", "index.html"));
 });
 
@@ -41,12 +41,10 @@ router.post("/todo", (req: Request, res: Response) => {
     tarefas.push({ id: novoId, descricao: `${tarefa}` });
 
     // RESPOSTA COM STATUS 200
-    res
-      .status(200)
-      .send({
-        id: novoId,
-        mensagem: `Tarefa '${tarefa}' inserida com sucesso!`,
-      });
+    res.status(200).send({
+      id: novoId,
+      mensagem: `Tarefa '${tarefa}' inserida com sucesso!`,
+    });
   } catch (error) {
     res.status(400).send({ erro: error });
   }
@@ -65,11 +63,9 @@ router.delete("/todo/:id", (req: Request, res: Response) => {
         tarefas.splice(index, 1);
 
         // RESPOSTA COM STATUS 200
-        res
-          .status(200)
-          .send({
-            mensagem: `Tarefa '${tarefa.descricao}' deletada com sucesso!`,
-          });
+        res.status(200).send({
+          mensagem: `Tarefa '${tarefa.descricao}' deletada com sucesso!`,
+        });
       }
     });
     res.status(404).send({ mensagem: `ID não encontrado!` });
